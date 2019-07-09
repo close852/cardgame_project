@@ -31,7 +31,7 @@ public class Dealer implements User {
 	}
 
 	public int getSumScore() {
-		return cards.stream().collect(Collectors.summingInt(Card::getScore));
+		return cards.stream().collect(Collectors.summingInt(c->c.getNumber().getPoint()));
 	}
 
 	private boolean isPossible() {

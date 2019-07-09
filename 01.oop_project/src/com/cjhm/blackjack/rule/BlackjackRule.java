@@ -5,6 +5,7 @@ import java.util.Scanner;
 import java.util.stream.Collectors;
 
 import com.cjhm.blackjack.constants.BlackjackConstants;
+import com.cjhm.entity.Card;
 import com.cjhm.entity.CardDeck;
 import com.cjhm.entity.User;
 import com.cjhm.rule.Rule;
@@ -53,7 +54,7 @@ public class BlackjackRule implements Rule {
 
 	@Override
 	public void getWinner(List<User> users) {
-		User winner = users.stream().filter(u -> u.getSumScore() < BlackjackConstants.BLACKJAK).sorted().findFirst().orElse(users.get(0));
+		User winner = users.stream().filter(u -> u.getSumScore() <= BlackjackConstants.BLACKJAK).sorted().findFirst().orElse(users.get(0));
 
 		System.out.println("winner : " + winner.getSumScore());
 	}
@@ -61,7 +62,7 @@ public class BlackjackRule implements Rule {
 	public void print(User u) {
 		StringBuffer sb = new StringBuffer("Gamer 카드목록\n");
 		sb.append("[" + u.getSumScore() + "]");
-		sb.append(u.openCard().stream().map(c -> c.getShape() + "/" + c.getNumber()).collect(Collectors.joining(" , ", "[", "]")));
+		sb.append(u.openCard().stream().map(Card::toString).collect(Collectors.joining(", ", "[", "]")));
 		sb.append("\n");
 		System.out.println(sb);
 	}
